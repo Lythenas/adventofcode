@@ -1,7 +1,7 @@
-use std::io::{self, BufRead};
+use crate::utils::read_lines;
 
-fn main() {
-    let lines : Vec<_> = read_lines().map(|line| line.parse::<usize>().unwrap()).collect();
+pub fn day1() {
+    let lines : Vec<_> = read_lines("day1.input").map(|line| line.parse::<usize>().unwrap()).collect();
 
     println!("Part 1: {}", part1(&lines));
     println!("Part 2: {}", part2(&lines));
@@ -31,6 +31,3 @@ fn part2(lines: &[usize]) -> usize {
     unreachable!();
 }
 
-fn read_lines() -> impl Iterator<Item=String> {
-    io::BufReader::new(io::stdin()).lines().map(|line| line.unwrap())
-}
