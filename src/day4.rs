@@ -1,9 +1,11 @@
 use crate::utils::read_lines;
 
 pub fn day4() {
-     let kv_pairs : Vec<String> = read_lines("day4.input").flat_map(|line| line.split(" ").map(|x| x.to_string()).collect::<Vec<_>>()).collect();
-     println!("Part 1: {}", part1(&kv_pairs));
-     println!("Part 2: {}", part2(&kv_pairs));
+    let kv_pairs: Vec<String> = read_lines("day4.input")
+        .flat_map(|line| line.split(" ").map(|x| x.to_string()).collect::<Vec<_>>())
+        .collect();
+    println!("Part 1: {}", part1(&kv_pairs));
+    println!("Part 2: {}", part2(&kv_pairs));
 }
 
 fn part1(kv_pairs: &[String]) -> usize {
@@ -33,7 +35,7 @@ fn part1(kv_pairs: &[String]) -> usize {
 
     // also check the last passport (if there is no newline after it)
     passport.sort();
-        if fields == passport[..] {
+    if fields == passport[..] {
         count_valid += 1;
     }
 
@@ -70,7 +72,7 @@ fn part2(kv_pairs: &[String]) -> usize {
 
     // also check the last passport (if there is no newline after it)
     passport.sort();
-        if fields == passport[..] {
+    if fields == passport[..] {
         count_valid += 1;
     }
 
@@ -94,7 +96,7 @@ fn value_is_valid(key: &str, value: &str) -> Result<(), ()> {
             if 1920 <= value && value <= 2002 {
                 return Ok(());
             }
-        },
+        }
         "iyr" => {
             let value = value.parse::<usize>().map_err(|_| ())?;
             if 2010 <= value && value <= 2020 {
@@ -111,20 +113,20 @@ fn value_is_valid(key: &str, value: &str) -> Result<(), ()> {
             if value.len() < 3 {
                 return Err(());
             }
-            let unit = &value[value.len()-2..];
-            let value = value[..value.len()-2].parse::<usize>().map_err(|_| ())?;
+            let unit = &value[value.len() - 2..];
+            let value = value[..value.len() - 2].parse::<usize>().map_err(|_| ())?;
 
             match unit {
                 "cm" => {
                     if 150 <= value && value <= 193 {
                         return Ok(());
                     }
-                },
+                }
                 "in" => {
                     if 59 <= value && value <= 76 {
                         return Ok(());
                     }
-                },
+                }
                 _ => return Err(()),
             }
         }
@@ -132,18 +134,19 @@ fn value_is_valid(key: &str, value: &str) -> Result<(), ()> {
             if value.chars().nth(0).unwrap() != '#' || value.len() != 7 {
                 return Err(());
             }
-            if value[1..].chars().all(|c| ('0' <= c && c <= '9') || ('a' <= c && c <= 'f')) {
+            if value[1..]
+                .chars()
+                .all(|c| ('0' <= c && c <= '9') || ('a' <= c && c <= 'f'))
+            {
                 return Ok(());
             }
         }
-        "ecl" => {
-            match value {
-                "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth" => {
-                    return Ok(());
-                }
-                _ => return Err(())
+        "ecl" => match value {
+            "amb" | "blu" | "brn" | "gry" | "grn" | "hzl" | "oth" => {
+                return Ok(());
             }
-        }
+            _ => return Err(()),
+        },
         "pid" => {
             if value.len() != 9 {
                 return Err(());
@@ -151,7 +154,7 @@ fn value_is_valid(key: &str, value: &str) -> Result<(), ()> {
             return value.parse::<usize>().map(|_| ()).map_err(|_| ());
         }
         "cid" => return Ok(()),
-        _ => unreachable!()
+        _ => unreachable!(),
     }
     return Err(());
 }
