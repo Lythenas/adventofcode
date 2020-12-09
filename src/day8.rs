@@ -2,12 +2,15 @@ use crate::utils::read_lines;
 
 pub fn day8() {
     let lines = read_lines("day8.input").collect::<Vec<String>>();
-    let instrs = lines.iter().map(|line| {
-        let mut iter = line.split(' ');
-        let instr = iter.next().unwrap();
-        let arg = iter.next().unwrap().parse::<isize>().unwrap();
-        (instr, arg)
-    }).collect::<Vec<_>>();
+    let instrs = lines
+        .iter()
+        .map(|line| {
+            let mut iter = line.split(' ');
+            let instr = iter.next().unwrap();
+            let arg = iter.next().unwrap().parse::<isize>().unwrap();
+            (instr, arg)
+        })
+        .collect::<Vec<_>>();
     // dbg!(instrs);
     println!("Part 1: {}", part1(&instrs));
     println!("Part 2: {}", part2(&instrs));
@@ -24,7 +27,7 @@ fn part1(instrs: &[(&str, isize)]) -> isize {
         let (instr, arg) = instrs[pc as usize];
         match instr {
             "_visited" => return acc,
-            "nop" => {},
+            "nop" => {}
             "acc" => acc += arg,
             "jmp" => pc += arg - 1,
             _ => unimplemented!(),
@@ -56,7 +59,7 @@ fn part2(instrs: &[(&str, isize)]) -> isize {
 }
 
 fn try_execute(instrs: &[(&str, isize)]) -> Result<isize, ()> {
-    let mut instrs : Vec<_> = instrs.into();
+    let mut instrs: Vec<_> = instrs.into();
     let mut pc = 0isize;
 
     let mut acc = 0isize;
@@ -66,7 +69,7 @@ fn try_execute(instrs: &[(&str, isize)]) -> Result<isize, ()> {
         let (instr, arg) = instrs[pc as usize];
         match instr {
             "_visited" => return Err(()),
-            "nop" => {},
+            "nop" => {}
             "acc" => acc += arg,
             "jmp" => pc += arg - 1,
             _ => unimplemented!(),
@@ -78,4 +81,3 @@ fn try_execute(instrs: &[(&str, isize)]) -> Result<isize, ()> {
 
     return Ok(acc);
 }
-
