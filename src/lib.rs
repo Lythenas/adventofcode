@@ -8,6 +8,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 
 pub fn run() {
     // println!("Day1");
@@ -24,6 +25,8 @@ pub fn run() {
     // day6::day6();
     // println!("Day7");
     // day7::day7();
-    println!("Day8");
-    day8::day8();
+    // println!("Day8");
+    // day8::day8();
+    println!("Day9");
+    day9::day9();
 }
